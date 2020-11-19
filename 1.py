@@ -1,7 +1,6 @@
-import string
 import os
 import sys
-import time
+
 
 
 def Bienvenido():
@@ -81,30 +80,36 @@ def Verificador(Simbolo,Tablero):
         return False 
 
 def MTablero(Tab):
+    os.system ("cls")
+    Bienvenido()
     for i in range(3):
       for j in range(7):
           print(Tab[i][j],end=' ')
       print()
+
+def VPosicion(Posicion):
+    Posicion = int(input("\n\t  Ingrese la Posicion que desea Jugardor {} -> ({}) : ".format())
+    
+    
                 
 def Juego(Tab,Simbolo,NJugador):
-     c = False
+     c = False ; Posicion = 0
      while c == False:
-        Posicion=str(input("\n\t  Ingrese la Posicion que desea Jugardor {} -> ({}) : ".format(NJugador,Simbolo)))
-        for i in range(3):
-            for j in range(7):
+        Posicion = VPosicion(Posicion)
+        if Posicion>9 or Posicion==0:
+           Posicion=int(input("\n\t  Ingrese la Posicion que desea Jugardor {} -> ({}) : ".format(NJugador,Simbolo)))
+           for i in range(3):
+              for j in range(7):
                 if Tab[i][j] == Posicion:
                     Tab[i][j]=Simbolo
                     print("\n");MTablero(Tab);print("\n")
                     return Tab
+
         Bienvenido()
-        print("\n\tPOR FAVOR INGRESE SU SIMBOLO EN UNA UBICACIÓN DISPONIBLE")
         print("\n");MTablero(Tab);print("\n")
+        print("\n\tPOR FAVOR INGRESE SU SIMBOLO EN UNA UBICACIÓN DISPONIBLE")
         c == False
         
-     
-
-
-
 def Menu():
     Bienvenido()
     print("""
@@ -132,30 +137,33 @@ def Menu():
                 GanarFinal("O")
                 break
           if Verificador("X",TabJuego) == "Empate": 
-           print("\t     -------------------------------")
-           print("\t\t       HAY EMPATE")
-           print("\t     -------------------------------\n")    
+           print("\t        -------------------------------")
+           print("\t\t         HAY EMPATE")
+           print("\t        -------------------------------\n")
+           break    
     
     if Opcion == 2 :
         for i in range(9):
-          TabJuego = Juego(TabJuego,"O",2)
-          Ganar = Verificador("0",TabJuego)
+          TabJuego = Juego(TabJuego,"O",1)
+          Ganar = Verificador("O",TabJuego)
           if Ganar == True:
              GanarFinal("O")
              break
           if Ganar == False:
-             TabJuego = Juego(TabJuego,"X",1)
+             TabJuego = Juego(TabJuego,"X",2)
              if Verificador("X",TabJuego)==True:
                 GanarFinal("X")
                 break             
-        if Verificador("X",TabJuego) == "Empate": 
-           print("\t     -------------------------------")
-           print("\t\t       HAY EMPATE")
-           print("\t     -------------------------------\n")     
-         
+          if Verificador("O",TabJuego) == "Empate": 
+           print("\t        -------------------------------")
+           print("\t\t         HAY EMPATE")
+           print("\t        -------------------------------\n")     
+    else:
+        os.system ("cls")
+        print("\t\tPOR FAVOR DIGITE UNA OPCION VALIDA")
+        Menu()
 
 os.system ("cls")  
-
 Menu()
 
  
