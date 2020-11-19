@@ -4,17 +4,19 @@ import sys
 import time
 
 
+def Bienvenido():
+    print("\n\t        ---------------------------------")
+    print("\t          Bienvenidos al juego TA-TE-TI")
+    print("\t        ---------------------------------\n")
 
 def Inicio():
-       print("\t     ---------------------------------")
-       print("\t       Bienvenidos al juego TA-TE-TI")
-       print("\t     ---------------------------------\n")
-       Tablero=[
+    Bienvenido()   
+    Tablero=[
        ["\t\t\t|","1","|","2","|","3","|"],
        ["\t\t\t|","4","|","5","|","6","|"],
        ["\t\t\t|","7","|","8","|","9","|"]
        ]
-       return Tablero
+    return Tablero
 
 def GanarFinal(Ganador):
        print("\t     ------------------------------------------")
@@ -77,28 +79,34 @@ def Verificador(Simbolo,Tablero):
             if c == 9:
                return "Empate"
         return False 
-                
-def Juego(Tab,Simbolo,NJugador):
-    Posicion=str(input("\n\t  Ingrese la Posicion que desea Jugardor {} - ({}) : ".format(NJugador,Simbolo)))
-    for i in range(3):
-         for j in range(7):
-           if Tab[i][j] == Posicion:
-              if Tab[i][j]!="X" or Tab[i][j]!="O":
-                Tab[i][j]=Simbolo
-                print("\n");Tablero(Tab);print("\n")
-                return Tab
-    #Posicion=str(input("\n\t  Ingrese la Posicion que desea Jugardor {} : ".format(NJugador)))
-                                                           
-def Tablero(Tab):
+
+def MTablero(Tab):
     for i in range(3):
       for j in range(7):
           print(Tab[i][j],end=' ')
       print()
-            
+                
+def Juego(Tab,Simbolo,NJugador):
+     c = False
+     while c == False:
+        Posicion=str(input("\n\t  Ingrese la Posicion que desea Jugardor {} -> ({}) : ".format(NJugador,Simbolo)))
+        for i in range(3):
+            for j in range(7):
+                if Tab[i][j] == Posicion:
+                    Tab[i][j]=Simbolo
+                    print("\n");MTablero(Tab);print("\n")
+                    return Tab
+        Bienvenido()
+        print("\n\tPOR FAVOR INGRESE SU SIMBOLO EN UNA UBICACIÓN DISPONIBLE")
+        print("\n");MTablero(Tab);print("\n")
+        c == False
+        
+     
+
+
+
 def Menu():
-    print("\t     ---------------------------------")
-    print("\t       Bienvenidos al juego TA-TE-TI")
-    print("\t     ---------------------------------\n")
+    Bienvenido()
     print("""
         \t\t| _ | _ | _ |
         \t\t| _ | _ | _ |
@@ -110,8 +118,7 @@ def Menu():
     Opcion = int(input("\t\tEscribe El Simbolo Que Desea Usar : "))
     os.system ("cls")
     TabJuego = Inicio() ; Ganar = False
-    print("\n");Tablero(TabJuego);print("\n")
-    
+    print("\n");MTablero(TabJuego);print("\n") 
     if Opcion == 1:
        for i in range(9):
           TabJuego = Juego(TabJuego,"X",1)
